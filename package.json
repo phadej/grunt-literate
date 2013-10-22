@@ -1,0 +1,45 @@
+{
+  "name": "grunt-literate",
+  "description": "Generate docs from your source",
+  "version": "0.1.0",
+  "homepage": "https://github.com/phadej/grunt-literate",
+  "author": {
+    "name": "Oleg Grenrus",
+    "email": "oleg.grenrus@iki.fi",
+    "url": "http://oleg.fi/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/phadej/grunt-literate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/phadej/grunt-literate/issues"
+  },
+  "licenses": [
+    {
+      "type": "BSD3",
+      "url": "https://github.com/phadej/grunt-literate/blob/master/LICENSE-BSD3"
+    }
+  ],
+  "main": "Gruntfile.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt": "~0.4.1"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.1"
+  },
+  "keywords": [
+    "gruntplugin",
+    "literate"
+  ],
+  "dependencies": {
+    "esprima": "~1.0.4"
+  }
+}
