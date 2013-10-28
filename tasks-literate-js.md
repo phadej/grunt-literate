@@ -62,6 +62,7 @@ Make a pull request, but don't commit `README.md`!
 
 ## Release History
 
+- 0.1.1 Fix issue with unindenting
 - 0.1.0 Initial release
 
 ## Related work
@@ -84,7 +85,7 @@ module.exports = function(grunt) {
     this.files.forEach(function (f) {
       assert(f.dest, "dest argument is required");
       var content = "";
-      
+
       f.src.forEach(function (filename) {
         content += literate(grunt.file.read(filename), options);
       });

@@ -50,6 +50,7 @@ Make a pull request, but don't commit `README.md`!
 
 ## Release History
 
+- 0.1.1 Fix issue with unindenting
 - 0.1.0 Initial release
 
 ## Related work
