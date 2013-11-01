@@ -1,6 +1,6 @@
 
 ```js
-//foobar
+// vim: set sts=2 sw=2 ts=2 et:
 /*
  * grunt-literate
  * https://github.com/phadej/grunt-quotmark
@@ -62,12 +62,17 @@ Make a pull request, but don't commit `README.md`!
 
 ## Release History
 
+- 0.1.2 Newline improvements
+  - Newline at the end of comment
+  - Only one newline at the end of generated file
 - 0.1.1 Fix issue with unindenting
 - 0.1.0 Initial release
 
 ## Related work
 
 This task could be abused to do literate programming.
+[Docco](http://jashkenas.github.io/docco/) is similar tool,
+however *literate* is markup-language-agnostic.
 
 
 ```js
@@ -96,4 +101,3 @@ module.exports = function(grunt) {
   });
 };
 ```
-
