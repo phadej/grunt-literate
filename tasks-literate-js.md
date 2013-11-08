@@ -228,6 +228,7 @@ Make a pull request, but don't commit `README.md`!
 
 ## Release History
 
+- 0.1.3 Directives
 - 0.1.2 Newline improvements
   - Newline at the end of comment
   - Only one newline at the end of generated file
