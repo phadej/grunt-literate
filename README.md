@@ -2,6 +2,8 @@
 
 > Generate docs from your source
 
+[![Code Climate](https://codeclimate.com/github/phadej/grunt-literate.png)](https://codeclimate.com/github/phadej/grunt-literate)
+
 ## Getting Started
 
 This plugin requires Grunt `~0.4.1`
