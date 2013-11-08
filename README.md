@@ -39,7 +39,22 @@ This example uses markdown, but you are free to use any format, or even just pla
 
 ### Options
 
-There are no options yet.
+- `boolean code = false`, whether to include code parts or not
+
+### Directives
+
+Comments starting with triple slash `///` are directive comments. Currently supported directives are:
+
+- `include` _filename_: include process _filename_ here.
+- `plain` _filename_: include _filename_ here, without any processing, as is.
+
+
+#### lib/literate.js
+
+This is the heart of this task. Check the file, if you're interested
+
+*NOTE* this is demo of `include` directive
+
 
 ## Contributing
 

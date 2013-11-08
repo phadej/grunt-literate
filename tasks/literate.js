@@ -50,29 +50,18 @@ This example uses markdown, but you are free to use any format, or even just pla
 
 ### Options
 
-There are no options yet.
+- `boolean code = false`, whether to include code parts or not
 
-## Contributing
+### Directives
 
-In lieu of a formal styleguide, take care to maintain the existing coding style.
-Add unit tests for any new or changed functionality.
-Lint and test your code using [Grunt](http://gruntjs.com/).
-Make a pull request, but don't commit `README.md`!
+Comments starting with triple slash `///` are directive comments. Currently supported directives are:
 
-## Release History
+- `include` _filename_: include process _filename_ here.
+- `plain` _filename_: include _filename_ here, without any processing, as is.
 
-- 0.1.2 Newline improvements
-  - Newline at the end of comment
-  - Only one newline at the end of generated file
-- 0.1.1 Fix issue with unindenting
-- 0.1.0 Initial release
-
-## Related work
-
-This task could be abused to do literate programming.
-[Docco](http://jashkenas.github.io/docco/) is similar tool,
-however *literate* is markup-language-agnostic.
 */
+/// include ../lib/literate.js
+/// plain ../footer.md
 
 "use strict";
 
@@ -89,9 +78,13 @@ module.exports = function(grunt) {
       assert(f.dest, "dest argument is required");
       var content = "";
 
+      try {
       f.src.forEach(function (filename) {
-        content += literate(grunt.file.read(filename), options);
+        content += literate(filename, options);
       });
+      } catch (e) {
+        console.log(e.stack);
+      }
 
       // Write file
       grunt.file.write(f.dest, content);
