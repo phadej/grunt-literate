@@ -3,6 +3,8 @@
 > Generate docs from your source
 
 [![Code Climate](https://codeclimate.com/github/phadej/grunt-literate.png)](https://codeclimate.com/github/phadej/grunt-literate)
+[![NPM version](https://badge.fury.io/js/grunt-literate.png)](http://badge.fury.io/js/grunt-literate)
+[![Dependency Status](https://gemnasium.com/phadej/grunt-literate.png)](https://gemnasium.com/phadej/grunt-literate)
 
 ## Getting Started
 
@@ -86,6 +88,7 @@ Make a pull request, but don't commit `README.md`!
 - 0.1.4 Usage as executable and library
   - run `ljs`
   - or `require("grunt-literate")(filename)`
+  - also you may use glob patterns in directives
 - 0.1.3 Directives
 - 0.1.2 Newline improvements
   - Newline at the end of comment
