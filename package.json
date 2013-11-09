@@ -22,6 +22,9 @@
     }
   ],
   "main": "lib/literate.js",
+  "bin": {
+    "ljs": "./bin/ljs.js"
+  },
   "engines": {
     "node": ">= 0.8.0"
   },
@@ -29,7 +32,7 @@
     "test": "grunt test"
   },
   "devDependencies": {
-    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-jshint": "~0.7.1",
     "grunt": "~0.4.1"
   },
   "peerDependencies": {
@@ -39,7 +42,8 @@
     "gruntplugin",
     "literate",
     "weave",
-    "programming"
+    "programming",
+    "ljs"
   ],
   "dependencies": {
     "esprima": "~1.0.4",
