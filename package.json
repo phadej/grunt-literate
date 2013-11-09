@@ -1,7 +1,7 @@
 {
   "name": "grunt-literate",
   "description": "Generate docs from your source",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "homepage": "https://github.com/phadej/grunt-literate",
   "author": {
     "name": "Oleg Grenrus",

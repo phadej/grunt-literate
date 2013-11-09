@@ -62,8 +62,12 @@ Comments starting with triple slash `///` are directive comments. Currently supp
 - `plain` _filename_: include _filename_ here, without any processing, as is.
 
 */
-/// include ../lib/literate.js
+/// include ../lib/*
+/// include ../bin/ljs.js
+/// plain ../CONTRIBUTING.md
+/// plain ../CHANGELOG.md
 /// plain ../footer.md
+/// plain ../LICENSE
 
 "use strict";
 

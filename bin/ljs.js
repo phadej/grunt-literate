@@ -1,4 +1,15 @@
 #!/usr/bin/env node
+/**
+  ### ljs
+
+  If `grunt-literate` is installed globally,
+  you can use `ljs` command line tool to process your literate javascript files
+
+  ```sh
+  $ ljs -c -o foo.md foo.js
+  $ ljs --help
+  ```
+*/
 
 "use strict";
 
