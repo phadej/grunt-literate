@@ -1,5 +1,6 @@
 {
   "quotmark": "double",
+  "shadow": "outer",
   "camelcase": true,
   "trailing": true,
   "curly": true,
