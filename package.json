@@ -33,7 +33,8 @@
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.8.0",
-    "grunt": "~0.4.1"
+    "grunt": "~0.4.1",
+    "grunt-beautiful-docs": "~0.1.0"
   },
   "peerDependencies": {
     "grunt": "~0.4.1"
@@ -43,7 +44,11 @@
     "literate",
     "weave",
     "programming",
-    "ljs"
+    "ljs",
+    "documentation",
+    "beautiful-docs",
+    "beaufiful",
+    "docs"
   ],
   "dependencies": {
     "esprima": "~1.0.4",

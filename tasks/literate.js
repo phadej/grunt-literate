@@ -67,6 +67,7 @@ Comments starting with triple slash `///` are directive comments. Currently supp
 */
 /// include ../lib/*
 /// include ../bin/ljs.js
+/// plain ../beautiful-docs.md
 /// plain ../CONTRIBUTING.md
 /// plain ../CHANGELOG.md
 /// plain ../footer.md

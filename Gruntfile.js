@@ -35,6 +35,17 @@ module.exports = function(grunt) {
         },
       },
     },
+
+    bfdocs: {
+      documentation: {
+        options: {
+          title: "Grunt literate",
+          manifest: "bfdocs-manifest.json",
+          dest: "documentation/",
+          theme: "default",
+        }
+      }
+    },
   });
 
   // Actually load this plugin's task(s).
@@ -42,6 +53,7 @@ module.exports = function(grunt) {
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks("grunt-contrib-jshint");
+  grunt.loadNpmTasks("grunt-beautiful-docs");
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
