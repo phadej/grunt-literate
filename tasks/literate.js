@@ -13,6 +13,7 @@
 
 > Generate docs from your source
 
+[![Build Status](https://travis-ci.org/phadej/grunt-literate.png)](https://travis-ci.org/phadej/grunt-literate)
 [![Code Climate](https://codeclimate.com/github/phadej/grunt-literate.png)](https://codeclimate.com/github/phadej/grunt-literate)
 [![NPM version](https://badge.fury.io/js/grunt-literate.png)](http://badge.fury.io/js/grunt-literate)
 [![Dependency Status](https://gemnasium.com/phadej/grunt-literate.png)](https://gemnasium.com/phadej/grunt-literate)
