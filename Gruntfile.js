@@ -59,6 +59,9 @@ module.exports = function(grunt) {
   // plugin's task(s), then test the result.
   // grunt.registerTask('test', ['clean', 'readme', 'nodeunit']);
 
+  // Docs task
+  grunt.registerTask("docs", ["literate", "bfdocs"]);
+
   // By default, lint and run all tests.
   grunt.registerTask("default", ["jshint"]);
 
