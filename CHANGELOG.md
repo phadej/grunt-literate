@@ -1,5 +1,8 @@
 ## Release History
 
+- 0.1.5 Maintenance release
+  - Updated dependencies
+  - Added note about beautiful docs
 - 0.1.4 Usage as executable and library
   - run `ljs`
   - or `require("grunt-literate")(filename)`
