@@ -50,7 +50,7 @@ grunt.initConfig({
 });
 ```
 
-The source will be parsed as JavaScript, and `/** ... ` comments extracted to the destionation file.
+The source will be parsed as JavaScript, and `/** ... ` comments extracted to the destination file.
 This example uses markdown, but you are free to use any format, or even just plain text.
 
 ### Options
