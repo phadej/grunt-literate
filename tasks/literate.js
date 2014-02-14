@@ -55,7 +55,14 @@ This example uses markdown, but you are free to use any format, or even just pla
 
 ### Options
 
-- `boolean code = false`, whether to include code parts or not
+- `code : boolean`, default `false`, whether to include code parts or not
+- `comments : boolean`, default `true`, whether to include comments
+- `include : boolean`, default `true`, whether to process `include` and `plain` directives.
+- `separate : boolean`, default `false`.
+  - if `false` input files are concatenated and written into `dest` file
+  - if `true`, input files are processed separately and written into `dest` directory
+- `separateExtension : string`, default `md`, extension to append to files, when processed separately.
+- `separateBanner : string`, default "", banner to prepend to the separate files. Processed with [mustache](http://mustache.github.io/).
 
 ### Directives
 
@@ -77,27 +84,48 @@ Comments starting with triple slash `///` are directive comments. Currently supp
 
 var literate = require("../lib/literate.js");
 var assert = require("assert");
+var mkdirp = require("mkdirp");
+var path = require("path");
+var mustache = require("mustache");
 
 module.exports = function(grunt) {
   grunt.registerMultiTask("literate", "Generate docs from your source", function() {
     var options = this.options({
       code: false,
+      comments: true,
+      include: true,
+      separate: false,
+      separateExtension: "md",
+      separateBanner: "",
     });
 
     this.files.forEach(function (f) {
+      var content;
+
       assert(f.dest, "dest argument is required");
-      var content = "";
 
-      try {
-      f.src.forEach(function (filename) {
-        content += literate(filename, options);
-      });
-      } catch (e) {
-        console.log(e.stack);
+      if (options.separate) {
+        mkdirp.sync(f.dest);
+
+        f.src.forEach(function (filename) {
+          var banner = mustache.render(options.separateBanner, { filename: filename });
+          content = banner + literate(filename, options);
+          grunt.file.write(path.join(f.dest, filename.replace(/[\\\/]/g, "-") + "." + options.separateExtension), content);
+        });
+      } else {
+        content = "";
+
+        try {
+        f.src.forEach(function (filename) {
+          content += literate(filename, options);
+        });
+        } catch (e) {
+          console.log(e.stack);
+        }
+
+        // Write file
+        grunt.file.write(f.dest, content);
       }
-
-      // Write file
-      grunt.file.write(f.dest, content);
     });
   });
 };

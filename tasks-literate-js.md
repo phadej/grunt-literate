@@ -56,7 +56,14 @@ This example uses markdown, but you are free to use any format, or even just pla
 
 ### Options
 
-- `boolean code = false`, whether to include code parts or not
+- `code : boolean`, default `false`, whether to include code parts or not
+- `comments : boolean`, default `true`, whether to include comments
+- `include : boolean`, default `true`, whether to process `include` and `plain` directives.
+- `separate : boolean`, default `false`.
+  - if `false` input files are concatenated and written into `dest` file
+  - if `true`, input files are processed separately and written into `dest` directory
+- `separateExtension : string`, default `md`, extension to append to files, when processed separately.
+- `separateBanner : string`, default "", banner to prepend to the separate files. Processed with [mustache](http://mustache.github.io/).
 
 ### Directives
 
@@ -200,7 +207,7 @@ function fileDirective(filename, value, regexp, callback) {
   }
 }
 
-function getTokens(filename) {
+function getTokens(filename, opts) {
   var contents = fs.readFileSync(filename).toString();
   contents = stripShebang(contents);
   var tokens = lex(contents);
@@ -212,15 +219,19 @@ function getTokens(filename) {
     if (token.type === "Comment" && token.value.type === "Line" && token.value.value[0] === "/") {
       var value = token.value.value.substr(1);
       r = fileDirective(filename, value, /^\s*plain\s+(.*?)\s*$/, function (includename) {
-        resTokens.push({
-          type: "Plain",
-          value: fs.readFileSync(includename).toString(),
-        });
+        if (opts.include) {
+          resTokens.push({
+            type: "Plain",
+            value: fs.readFileSync(includename).toString(),
+          });
+        }
       });
       if (r) { return; }
 
       r = fileDirective(filename, value, /^\s*include\s+(.*?)\s*$/, function (includename) {
-        resTokens = resTokens.concat(getTokens(includename));
+        if (opts.include) {
+          resTokens = resTokens.concat(getTokens(includename));
+        }
       });
       if (r) { return; }
 
@@ -266,10 +277,12 @@ function unindent(value) {
 function literate(filename, opts) {
   opts = opts || {};
   var code = opts.code || false;
-  var codeOpen = opts.codeOpen || "\n```js\n";
-  var codeClose = opts.codeClose || "\n```\n\n";
+  var comments = opts.comments === undefined ? true : opts.comments;
 
-  var tokens = getTokens(filename);
+  var codeOpen = opts.codeOpen || "\n\`\`\`js\n";
+  var codeClose = opts.codeClose || "\n\`\`\`\n\n";
+
+  var tokens = getTokens(filename, opts);
 
   var state = "code";
   var content = "";
@@ -291,7 +304,7 @@ function literate(filename, opts) {
       appendCode();
       content += "\n" + token.value;
 
-    } else if (token.type === "Comment" && token.value.type === "Block" && token.value.value[0] === "*") {
+    } else if (comments && token.type === "Comment" && token.value.type === "Block" && token.value.value[0] === "*") {
       appendCode();
 
       // literate comment
@@ -308,7 +321,7 @@ function literate(filename, opts) {
         tmp = "";
       }
 
-      tmp += token.raw;
+      tmp += token.raw.replace(/\`\`\`/g, "\\`\\`\\`");
     }
   });
 
@@ -504,27 +517,48 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 var literate = require("../lib/literate.js");
 var assert = require("assert");
+var mkdirp = require("mkdirp");
+var path = require("path");
+var mustache = require("mustache");
 
 module.exports = function(grunt) {
   grunt.registerMultiTask("literate", "Generate docs from your source", function() {
     var options = this.options({
       code: false,
+      comments: true,
+      include: true,
+      separate: false,
+      separateExtension: "md",
+      separateBanner: "",
     });
 
     this.files.forEach(function (f) {
+      var content;
+
       assert(f.dest, "dest argument is required");
-      var content = "";
 
-      try {
-      f.src.forEach(function (filename) {
-        content += literate(filename, options);
-      });
-      } catch (e) {
-        console.log(e.stack);
+      if (options.separate) {
+        mkdirp.sync(f.dest);
+
+        f.src.forEach(function (filename) {
+          var banner = mustache.render(options.separateBanner, { filename: filename });
+          content = banner + literate(filename, options);
+          grunt.file.write(path.join(f.dest, filename.replace(/[\\\/]/g, "-") + "." + options.separateExtension), content);
+        });
+      } else {
+        content = "";
+
+        try {
+        f.src.forEach(function (filename) {
+          content += literate(filename, options);
+        });
+        } catch (e) {
+          console.log(e.stack);
+        }
+
+        // Write file
+        grunt.file.write(f.dest, content);
       }
-
-      // Write file
-      grunt.file.write(f.dest, content);
     });
   });
 };

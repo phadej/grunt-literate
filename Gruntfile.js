@@ -34,6 +34,17 @@ module.exports = function(grunt) {
           code: true,
         },
       },
+      "literated-src": {
+        src: ["tasks/literate.js", "lib/*.js", "bin/*.js"],
+        dest: "literated-src",
+        options: {
+          code: true,
+          comments: false,
+          separate: true,
+          separateBanner: "# {{{ filename }}}\n\n",
+          include: false,
+        },
+      },
     },
 
     bfdocs: {

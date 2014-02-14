@@ -44,7 +44,14 @@ This example uses markdown, but you are free to use any format, or even just pla
 
 ### Options
 
-- `boolean code = false`, whether to include code parts or not
+- `code : boolean`, default `false`, whether to include code parts or not
+- `comments : boolean`, default `true`, whether to include comments
+- `include : boolean`, default `true`, whether to process `include` and `plain` directives.
+- `separate : boolean`, default `false`.
+  - if `false` input files are concatenated and written into `dest` file
+  - if `true`, input files are processed separately and written into `dest` directory
+- `separateExtension : string`, default `md`, extension to append to files, when processed separately.
+- `separateBanner : string`, default "", banner to prepend to the separate files. Processed with [mustache](http://mustache.github.io/).
 
 ### Directives
 
