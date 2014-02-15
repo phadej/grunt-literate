@@ -40,7 +40,9 @@ module.exports = function(grunt) {
       documentation: {
         options: {
           title: "Grunt literate",
-          manifest: "bfdocs-manifest.json",
+          manifest: {
+            files: [ "README.md" ],
+          },
           dest: "documentation/",
           theme: "default",
         }
