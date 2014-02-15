@@ -51,7 +51,7 @@ grunt.initConfig({
 });
 ```
 
-The source will be parsed as JavaScript, and `/** ... ` comments extracted to the destionation file.
+The source will be parsed as JavaScript, and `/** ... ` comments extracted to the destination file.
 This example uses markdown, but you are free to use any format, or even just plain text.
 
 ### Options
@@ -170,20 +170,13 @@ var fs = require("fs");
 var path = require("path");
 var assert = require("assert");
 var glob = require("glob");
+var _ = require("underscore");
 
 var whitespaceEndRe = /^\s*$/;
 var whitespaceRe = /^(\s*)/;
 
 function isWhitespace(str) {
   return whitespaceEndRe.test(str);
-}
-
-function find(array, predicate) {
-  for (var i = 0; i < array.length; i++) {
-    if (predicate(array[i])) {
-      return array[i];
-    }
-  }
 }
 
 function stripShebang(contents) {
@@ -241,6 +234,35 @@ function getTokens(filename) {
   return resTokens;
 }
 
+function unindent(value) {
+  var lines = value.split(/\n/);
+  var first = _.find(lines, function (line) { return !isWhitespace(line); } );
+  var indent = first ? whitespaceRe.exec(first)[1] : "";
+
+  // Drop empty lines at the beginning of the literate comment
+  while (true) {
+    if (lines[0] !== undefined && isWhitespace(lines[0])) {
+      lines.shift();
+    } else {
+      break;
+    }
+  }
+
+  // unindent lines
+  lines = lines.map(function (line) {
+    if (line.indexOf(indent) === 0) {
+      return line.replace(indent, "");
+    } else if (isWhitespace(line)) {
+      return "";
+    } else {
+      return line;
+    }
+  });
+
+  // Each line should have newline char after, also the last
+  return lines.join("\n") + "\n";
+}
+
 function literate(filename, opts) {
   opts = opts || {};
   var code = opts.code || false;
@@ -278,32 +300,7 @@ function literate(filename, opts) {
       // block comment starting with /**
       var value = comment.value.slice(1);
 
-      var lines = value.split(/\n/);
-      var first = find(lines, function (line) { return !isWhitespace(line); } );
-      var indent = first ? whitespaceRe.exec(first)[1] : "";
-
-      // Drop empty lines at the beginning of the literate comment
-      while (true) {
-        if (lines[0] !== undefined && isWhitespace(lines[0])) {
-          lines.shift();
-        } else {
-          break;
-        }
-      }
-
-      // unindent lines
-      lines = lines.map(function (line) {
-        if (line.indexOf(indent) === 0) {
-          return line.replace(indent, "");
-        } else if (isWhitespace(line)) {
-          return "";
-        } else {
-          return line;
-        }
-      });
-
-      // Each line should have newline char after, also the last
-      content += lines.join("\n") + "\n";
+      content += unindent(value);
     } else if (code) {
       // Code
       if (state !== "code") {
@@ -417,6 +414,30 @@ process.exit(ret);
 This package plays well with [beautiful-docs](http://beautifuldocs.com/) and [grunt-beautiful-docs](https://www.npmjs.org/package/grunt-beautiful-docs) especially.
 
 Check [`Gruntfile.js`](https://github.com/phadej/grunt-literate/blob/master/Gruntfile.js) in the repository for an example.
+
+### Getting started
+
+Configure `literate` and `bfdocs` tasks:
+
+```js
+grunt.initConfig({
+  literate: {
+     "README.md": ["lib/*.js"]
+  },
+  bfdocs: {
+    docs: {
+      options: {
+        title: "Grunt literate",
+        manifest: {
+          files: [ "README.md" ],
+        },
+        dest: "doc/",
+        theme: "default",
+      }
+    }
+  },
+});
+```
 
 ## Contributing
 
