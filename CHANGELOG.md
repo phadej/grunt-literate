@@ -1,5 +1,7 @@
 ## Release History
 
+- 0.2.0 Split out
+  - Library is in [ljs](https://github.com/phadej/ljs) package now
 - 0.1.5 Maintenance release
   - Updated dependencies
   - Added note about beautiful docs

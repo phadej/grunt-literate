@@ -65,17 +65,14 @@ Comments starting with triple slash `///` are directive comments. Currently supp
 - `plain` _filename_: include _filename_ here, without any processing, as is.
 
 */
-/// include ../lib/*
-/// include ../bin/ljs.js
 /// plain ../beautiful-docs.md
 /// plain ../CONTRIBUTING.md
 /// plain ../CHANGELOG.md
-/// plain ../footer.md
 /// plain ../LICENSE
 
 "use strict";
 
-var literate = require("../lib/literate.js");
+var literate = require("ljs");
 var assert = require("assert");
 
 module.exports = function(grunt) {

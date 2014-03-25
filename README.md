@@ -54,28 +54,6 @@ Comments starting with triple slash `///` are directive comments. Currently supp
 - `plain` _filename_: include _filename_ here, without any processing, as is.
 
 
-### Lex.js
-
-This is for demo of `/// include` directive.
-
-### Library
-
-You can also use *grunt-literate* as a normal library:
-
-```
-var documentation = require("grunt-literate")("hello.js", { code: true });
-```
-
-### ljs
-
-If `grunt-literate` is installed globally,
-you can use `ljs` command line tool to process your literate javascript files
-
-```sh
-$ ljs -c -o foo.md foo.js
-$ ljs --help
-```
-
 
 ## beautiful-docs
 
@@ -114,6 +92,8 @@ Make a pull request, but don't commit `README.md`!
 
 ## Release History
 
+- 0.2.0 Split out
+  - Library is in [ljs](https://github.com/phadej/ljs) package now
 - 0.1.5 Maintenance release
   - Updated dependencies
   - Added note about beautiful docs
@@ -127,14 +107,6 @@ Make a pull request, but don't commit `README.md`!
   - Only one newline at the end of generated file
 - 0.1.1 Fix issue with unindenting
 - 0.1.0 Initial release
-
-## Related work
-
-This task could be abused to do literate programming.
-[Docco](http://jashkenas.github.io/docco/) is similar tool,
-however *literate* is markup-language-agnostic.
-
-## LICENSE
 
 Copyright Oleg Grenrus 2013
 

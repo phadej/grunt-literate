@@ -1,7 +1,7 @@
 {
   "name": "grunt-literate",
   "description": "Generate docs from your source",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "homepage": "https://github.com/phadej/grunt-literate",
   "author": {
     "name": "Oleg Grenrus",
@@ -21,10 +21,6 @@
       "url": "https://github.com/phadej/grunt-literate/blob/master/LICENSE"
     }
   ],
-  "main": "lib/literate.js",
-  "bin": {
-    "ljs": "./bin/ljs.js"
-  },
   "engines": {
     "node": ">= 0.8.0"
   },
@@ -51,9 +47,6 @@
     "docs"
   ],
   "dependencies": {
-    "esprima": "~1.0.4",
-    "optimist": "~0.6.0",
-    "glob": "~3.2.6",
-    "underscore": "~1.6.0"
+    "ljs": "~0.2.0"
   }
 }
